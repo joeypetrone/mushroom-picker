@@ -57,7 +57,7 @@ const mushrooms = [
     id: 'mushroom07',
     name: 'Straw',
     description: 'These jolly mushrooms are called Volvariella volvacea. Their common name comes from the rice straw on which they are grown.',
-    imgUrl: 'https://w7.pngwing.com/pngs/899/628/png-transparent-straw-mushroom-shimeji-organic-food-pho-chicken-chicken-food-animals-chicken.png',
+    imgUrl: 'https://sc02.alicdn.com/kf/UTB8nXKCvGrFXKJk43Ovq6ybnpXak.jpg_350x350.jpg',
     isMagic: false,
     isPoisonous: false,
     isDeadly: false,
