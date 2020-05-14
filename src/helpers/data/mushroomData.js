@@ -146,7 +146,7 @@ const mushrooms = [
   {
     id: 'mushroom17',
     name: 'Penny Bun',
-    description: 'No food, fungal or otherwise, comes near it for flavour and texture and when you find a firm young penny bun',
+    description: 'No food, fungal or otherwise, comes near it for flavour and texture.',
     imgUrl: 'https://www.first-nature.com/fungi/images/boletaceae/boletus-edulis7.jpg',
     isMagic: false,
     isPoisonous: false,
@@ -189,7 +189,15 @@ const getBasket = () => basket;
 
 const pickAMushroom = () => {
   const mushroom = mushrooms[Math.floor(Math.random() * mushrooms.length)];
-  basket.push(mushroom);
+  const sameMushroom = basket.find((x) => x.id === mushroom.id);
+
+  if (sameMushroom && sameMushroom.quantity) {
+    sameMushroom.quantity += 1;
+  } else if (sameMushroom) {
+    sameMushroom.quantity = 2;
+  } else {
+    basket.unshift(mushroom);
+  }
 };
 
 export default { getMushrooms, getBasket, pickAMushroom };
