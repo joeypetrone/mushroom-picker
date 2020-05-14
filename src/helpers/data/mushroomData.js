@@ -187,15 +187,42 @@ const getMushrooms = () => mushrooms;
 
 const getBasket = () => basket;
 
+const emptyBasket = () => {
+  basket.length = 0;
+};
+
+const removeTwoFromBasket = () => {
+  console.log('in remove', basket.length);
+  if (basket.length > 0) {
+    let index = 0;
+    while (index < 2) {
+      const mushroom = basket[Math.floor(Math.random() * basket.length)];
+
+      if (mushroom.quantity > 1) {
+        console.log('before mushroom.quantity', mushroom.quantity);
+        mushroom.quantity -= 1;
+        console.log('after mushroom.quantity', mushroom.quantity);
+      } else {
+        console.log('else mushroom.quantity', mushroom.quantity);
+      }
+
+      console.log('after remove', basket.length);
+      index += 1;
+    }
+  }
+};
+
 const pickAMushroom = () => {
   const mushroom = mushrooms[Math.floor(Math.random() * mushrooms.length)];
   const sameMushroom = basket.find((x) => x.id === mushroom.id);
 
-  if (sameMushroom && sameMushroom.quantity) {
+  console.log('before remove', basket.length);
+  if (mushroom.isPoisonous) {
+    removeTwoFromBasket();
+  } else if (sameMushroom && sameMushroom.quantity) {
     sameMushroom.quantity += 1;
-  } else if (sameMushroom) {
-    sameMushroom.quantity = 2;
   } else {
+    mushroom.quantity = 1;
     basket.unshift(mushroom);
   }
 };
