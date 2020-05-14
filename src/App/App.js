@@ -1,12 +1,31 @@
 import React from 'react';
 import './App.scss';
 
+import mushroomData from '../helpers/data/mushroomData';
+import Forest from '../components/Forest/Forest';
+import Basket from '../components/Basket/Basket';
+
 class App extends React.Component {
+  state = {
+    mushrooms: [],
+    basket: [],
+  }
+
+  componentDidMount() {
+    const mushrooms = mushroomData.getMushrooms();
+    const basket = mushroomData.getBasket();
+    this.setState({ mushrooms, basket });
+  }
+
   render() {
+    const { mushrooms } = this.state.mushrooms;
+    const { basket } = this.state.basket;
+
     return (
       <div className="App">
-        <h2 className="mt-3">Mushroom Picker React App</h2>
-        <button className="btn btn-danger mt-3">This is an Info Button, DO NOT CLICK!</button>
+        <h3 className="mt-3">Mushroom Picker</h3>
+        <Forest mushrooms={mushrooms} />
+        <Basket basket={basket} />
       </div>
     );
   }
