@@ -191,39 +191,70 @@ const emptyBasket = () => {
   basket.length = 0;
 };
 
-const removeTwoFromBasket = () => {
-  console.log('in remove', basket.length);
-  if (basket.length > 0) {
-    let index = 0;
-    while (index < 2) {
-      const mushroom = basket[Math.floor(Math.random() * basket.length)];
-
-      if (mushroom.quantity > 1) {
-        console.log('before mushroom.quantity', mushroom.quantity);
-        mushroom.quantity -= 1;
-        console.log('after mushroom.quantity', mushroom.quantity);
-      } else {
-        console.log('else mushroom.quantity', mushroom.quantity);
-      }
-
-      console.log('after remove', basket.length);
-      index += 1;
-    }
+const checkQuantityAndAdd = (mushroom, sameMushroom) => {
+  if (sameMushroom && sameMushroom.quantity) {
+    // eslint-disable-next-line no-param-reassign
+    sameMushroom.quantity += 1;
+  } else {
+    // eslint-disable-next-line no-param-reassign
+    mushroom.quantity = 1;
+    basket.unshift(mushroom);
   }
+};
+
+const checkQuantityAndRemove = () => {
+  if (basket[0].quantity > 1) {
+    basket[0].quantity -= 1;
+  } else {
+    basket.splice(0, 1);
+  }
+};
+
+const removeTwoFromBasket = () => {
+  let i = 0;
+  while (i < 2) {
+    if (basket.length === 0) {
+      emptyBasket();
+    } else {
+      checkQuantityAndRemove();
+    }
+    i += 1;
+  }
+};
+
+const addAllToBasket = () => {
+  mushrooms.forEach((mushroom) => {
+    const sameMushroom = basket.find((x) => x.id === mushroom.id);
+
+    if (mushroom.isPoisonous || mushroom.isDeadly || mushroom.isMagic) {
+      // SKIP
+    } else {
+      checkQuantityAndAdd(mushroom, sameMushroom);
+    }
+  });
+  alert('YOU WIN!');
 };
 
 const pickAMushroom = () => {
   const mushroom = mushrooms[Math.floor(Math.random() * mushrooms.length)];
   const sameMushroom = basket.find((x) => x.id === mushroom.id);
 
-  console.log('before remove', basket.length);
-  if (mushroom.isPoisonous) {
-    removeTwoFromBasket();
-  } else if (sameMushroom && sameMushroom.quantity) {
-    sameMushroom.quantity += 1;
-  } else {
-    mushroom.quantity = 1;
-    basket.unshift(mushroom);
+  console.log('mushroom added', mushroom.name);
+
+  switch (true) {
+    case mushroom.isPoisonous:
+      removeTwoFromBasket();
+      break;
+    case mushroom.isDeadly:
+      emptyBasket();
+      break;
+    case mushroom.isMagic:
+      addAllToBasket();
+      mushroom.quantity = 1;
+      basket.unshift(mushroom);
+      break;
+    default:
+      checkQuantityAndAdd(mushroom, sameMushroom);
   }
 };
 
