@@ -193,7 +193,6 @@ const emptyBasket = () => {
 
 const checkBasketForAllMushrooms = () => {
   if (basket.length === 16) {
-    alert('You have all the mushrooms');
     mushrooms.forEach((mushroom) => {
       // eslint-disable-next-line no-param-reassign
       mushroom.hasWon = true;
@@ -247,7 +246,6 @@ const addAllToBasket = () => {
       checkQuantityAndAdd(mushroom, sameMushroom);
     }
   });
-  alert('YOU WIN!');
 };
 
 const pickAMushroom = () => {
@@ -259,8 +257,6 @@ const pickAMushroom = () => {
   });
   const mushroom = mushrooms[Math.floor(Math.random() * mushrooms.length)];
   const sameMushroom = basket.find((x) => x.id === mushroom.id);
-
-  console.log('mushroom added', mushroom.name);
 
   switch (true) {
     case mushroom.isPoisonous:
@@ -282,6 +278,15 @@ const pickAMushroom = () => {
       checkQuantityAndAdd(mushroom, sameMushroom);
   }
   checkBasketForAllMushrooms();
+  return mushroom;
+};
+
+const resetGame = () => {
+  emptyBasket();
+  mushrooms.forEach((mushroom) => {
+    // eslint-disable-next-line no-param-reassign
+    mushroom.hasWon = false;
+  });
 };
 
 export default {
@@ -289,4 +294,5 @@ export default {
   getBasket,
   pickAMushroom,
   checkBasketForAllMushrooms,
+  resetGame,
 };
