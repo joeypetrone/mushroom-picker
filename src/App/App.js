@@ -53,7 +53,7 @@ class App extends React.Component {
     const backgroundSelector = () => {
       let selectedBackground = '';
       switch (currentMushroomName) {
-        case 'Red Cap' || 'Webcap' || 'Jack-O-Lantern':
+        case 'Red Cap':
           selectedBackground = 'App redcap-background';
           break;
         case 'Webcap':
