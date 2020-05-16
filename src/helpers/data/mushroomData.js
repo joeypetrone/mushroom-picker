@@ -191,6 +191,16 @@ const emptyBasket = () => {
   basket.length = 0;
 };
 
+const checkBasketForAllMushrooms = () => {
+  if (basket.length === 16) {
+    alert('You have all the mushrooms');
+    mushrooms.forEach((mushroom) => {
+      // eslint-disable-next-line no-param-reassign
+      mushroom.hasWon = true;
+    });
+  }
+};
+
 const checkQuantityAndAdd = (mushroom, sameMushroom) => {
   if (sameMushroom && sameMushroom.quantity) {
     // eslint-disable-next-line no-param-reassign
@@ -220,6 +230,11 @@ const removeTwoFromBasket = () => {
     }
     i += 1;
   }
+
+  mushrooms.forEach((mushroom) => {
+    // eslint-disable-next-line no-param-reassign
+    mushroom.poisonEffect = true;
+  });
 };
 
 const addAllToBasket = () => {
@@ -236,6 +251,12 @@ const addAllToBasket = () => {
 };
 
 const pickAMushroom = () => {
+  mushrooms.forEach((mushroom) => {
+    // eslint-disable-next-line no-param-reassign
+    mushroom.poisonEffect = false;
+    // eslint-disable-next-line no-param-reassign
+    mushroom.deadlyEffect = false;
+  });
   const mushroom = mushrooms[Math.floor(Math.random() * mushrooms.length)];
   const sameMushroom = basket.find((x) => x.id === mushroom.id);
 
@@ -247,6 +268,10 @@ const pickAMushroom = () => {
       break;
     case mushroom.isDeadly:
       emptyBasket();
+      mushrooms.forEach((modifyMushroom) => {
+        // eslint-disable-next-line no-param-reassign
+        modifyMushroom.deadlyEffect = true;
+      });
       break;
     case mushroom.isMagic:
       addAllToBasket();
@@ -256,6 +281,12 @@ const pickAMushroom = () => {
     default:
       checkQuantityAndAdd(mushroom, sameMushroom);
   }
+  checkBasketForAllMushrooms();
 };
 
-export default { getMushrooms, getBasket, pickAMushroom };
+export default {
+  getMushrooms,
+  getBasket,
+  pickAMushroom,
+  checkBasketForAllMushrooms,
+};
