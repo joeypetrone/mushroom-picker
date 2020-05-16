@@ -9,6 +9,7 @@ class App extends React.Component {
   state = {
     mushrooms: [],
     basket: [],
+    currentMushroomName: '',
   }
 
   componentDidMount() {
@@ -18,15 +19,17 @@ class App extends React.Component {
   }
 
   pickAMushroom = () => {
-    mushroomData.pickAMushroom();
+    const currentMushroom = mushroomData.pickAMushroom();
+    const currentMushroomName = currentMushroom.name;
     const basket = mushroomData.getBasket();
-    this.setState({ basket });
+    this.setState({ basket, currentMushroomName });
   }
 
   playAgain = () => {
     mushroomData.resetGame();
     const basket = mushroomData.getBasket();
-    this.setState({ basket });
+    const currentMushroomName = '';
+    this.setState({ basket, currentMushroomName });
   }
 
   totalQuantity = () => {
@@ -44,15 +47,35 @@ class App extends React.Component {
     return mushroomsInBasket;
   }
 
-  backgroundSelector = () => {
-
-  }
-
   render() {
-    const { mushrooms, basket } = this.state;
+    const { mushrooms, basket, currentMushroomName } = this.state;
+
+    const backgroundSelector = () => {
+      let selectedBackground = '';
+      switch (currentMushroomName) {
+        case 'Red Cap' || 'Webcap' || 'Jack-O-Lantern':
+          selectedBackground = 'App redcap-background';
+          break;
+        case 'Webcap':
+          selectedBackground = 'App webcap-background';
+          break;
+        case 'Jack-O-Lantern':
+          selectedBackground = 'App jackolantern-background';
+          break;
+        case 'Death Cap':
+          selectedBackground = 'App death-background';
+          break;
+        case 'Mystikal':
+          selectedBackground = 'App trippy-background';
+          break;
+        default:
+          selectedBackground = 'App';
+      }
+      return selectedBackground;
+    };
 
     return (
-      <div className={basket.length === 16 ? 'App trippy-gradient' : 'App'}>
+      <div className={backgroundSelector()}>
         <h1 className="p-2">Mushroom Picker</h1>
         {basket.length === 16 ? (
           <button className="btn btn-danger mb-3" onClick={this.playAgain}>Play Again</button>
@@ -60,9 +83,9 @@ class App extends React.Component {
           <button className="btn btn-danger mb-3" onClick={this.pickAMushroom}>Pick Mushroom</button>
         )}
         <h2>Basket</h2>
-        <Basket basket={basket} totalQuantity={this.totalQuantity}/>
+        <Basket basket={basket} totalQuantity={this.totalQuantity} currentMushroomName={currentMushroomName}/>
         <h2>Forest</h2>
-        <Forest mushrooms={mushrooms} />
+        <Forest mushrooms={mushrooms} currentMushroomName={currentMushroomName}/>
       </div>
     );
   }

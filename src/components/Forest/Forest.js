@@ -8,13 +8,14 @@ import './Forest.scss';
 class Forest extends React.Component {
   static propTypes = {
     mushrooms: PropTypes.arrayOf(mushroomShape.mushroomShape),
+    currentMushroomName: PropTypes.string.isRequired,
     pickAMushroom: PropTypes.func,
   }
 
   render() {
-    const { mushrooms } = this.props;
+    const { mushrooms, currentMushroomName } = this.props;
     const makeForest = mushrooms.map((mushroom) => (
-      <Mushroom key={mushroom.id} mushroom={mushroom} />
+      <Mushroom key={mushroom.id} mushroom={mushroom} currentMushroomName={currentMushroomName}/>
     ));
 
     return (

@@ -7,10 +7,23 @@
   }
 }
 
-.trippy-gradient {
-  background: $favGradient;
+.trippy-background {
+  background: $trippyGradient;
 }
 
-.danger-background {
-  background: red;
+.redcap-background {
+  background: linear-gradient(266deg, rgba(255,0,0,1) 11%, rgba(213,18,18,1) 33%, rgba(213,18,18,1) 66%, rgba(255,0,0,1) 90%);
+}
+
+.webcap-background {
+  background: linear-gradient(266deg, rgba(198,39,0,1) 11%, rgba(179,65,0,1) 33%, rgba(179,65,0,1) 66%, rgba(198,39,0,1) 90%);
+}
+
+.jackolantern-background {
+  background: linear-gradient(266deg, rgba(255,35,35,1) 11%, rgba(255,91,21,1) 33%, rgba(255,118,21,1) 66%, rgba(255,35,35,1) 90%);
+}
+
+.death-background {
+  background: linear-gradient(266deg, rgba(38,35,35,1) 11%, rgba(85,10,10,1) 33%, rgba(66,27,27,1) 66%, rgba(38,35,35,1) 90%);
+  color: ghostwhite;
 }
