@@ -29,7 +29,7 @@ class App extends React.Component {
     return (
       <div className="App">
         <h3 className="mt-3">Mushroom Picker</h3>
-        <button className="btn btn-danger" onClick={this.pickAMushroom}>Pick A Mushroom</button>
+        <button className="btn btn-danger" onClick={this.pickAMushroom}>Pick Mushroom</button>
         <h4>Basket</h4>
         <Basket basket={basket} />
         <h4>Forest</h4>

@@ -12,9 +12,9 @@ class Mushroom extends React.Component {
 
     return (
       <div className="Mushroom col-3 mb-4">
-        <div className="card">
+          <div className={mushroom.hasWon ? 'card trippy-mushroom' : 'card'}>
           <img className="card-img-top" src={mushroom.imgUrl} alt="Mushroom Card" />
-          <div className="card-body">
+          <div className={mushroom.poisonEffect || mushroom.deadlyEffect ? 'card-body bg-danger' : 'card-body'}>
           <h5 className="card-title m-0">{mushroom.name}</h5>
           {
             mushroom.quantity ? (

@@ -187,17 +187,106 @@ const getMushrooms = () => mushrooms;
 
 const getBasket = () => basket;
 
-const pickAMushroom = () => {
-  const mushroom = mushrooms[Math.floor(Math.random() * mushrooms.length)];
-  const sameMushroom = basket.find((x) => x.id === mushroom.id);
+const emptyBasket = () => {
+  basket.length = 0;
+};
 
+const checkBasketForAllMushrooms = () => {
+  if (basket.length === 16) {
+    alert('You have all the mushrooms');
+    mushrooms.forEach((mushroom) => {
+      // eslint-disable-next-line no-param-reassign
+      mushroom.hasWon = true;
+    });
+  }
+};
+
+const checkQuantityAndAdd = (mushroom, sameMushroom) => {
   if (sameMushroom && sameMushroom.quantity) {
+    // eslint-disable-next-line no-param-reassign
     sameMushroom.quantity += 1;
-  } else if (sameMushroom) {
-    sameMushroom.quantity = 2;
   } else {
+    // eslint-disable-next-line no-param-reassign
+    mushroom.quantity = 1;
     basket.unshift(mushroom);
   }
 };
 
-export default { getMushrooms, getBasket, pickAMushroom };
+const checkQuantityAndRemove = () => {
+  if (basket[0].quantity > 1) {
+    basket[0].quantity -= 1;
+  } else {
+    basket.splice(0, 1);
+  }
+};
+
+const removeTwoFromBasket = () => {
+  let i = 0;
+  while (i < 2) {
+    if (basket.length === 0) {
+      emptyBasket();
+    } else {
+      checkQuantityAndRemove();
+    }
+    i += 1;
+  }
+
+  mushrooms.forEach((mushroom) => {
+    // eslint-disable-next-line no-param-reassign
+    mushroom.poisonEffect = true;
+  });
+};
+
+const addAllToBasket = () => {
+  mushrooms.forEach((mushroom) => {
+    const sameMushroom = basket.find((x) => x.id === mushroom.id);
+
+    if (mushroom.isPoisonous || mushroom.isDeadly || mushroom.isMagic) {
+      // SKIP
+    } else {
+      checkQuantityAndAdd(mushroom, sameMushroom);
+    }
+  });
+  alert('YOU WIN!');
+};
+
+const pickAMushroom = () => {
+  mushrooms.forEach((mushroom) => {
+    // eslint-disable-next-line no-param-reassign
+    mushroom.poisonEffect = false;
+    // eslint-disable-next-line no-param-reassign
+    mushroom.deadlyEffect = false;
+  });
+  const mushroom = mushrooms[Math.floor(Math.random() * mushrooms.length)];
+  const sameMushroom = basket.find((x) => x.id === mushroom.id);
+
+  console.log('mushroom added', mushroom.name);
+
+  switch (true) {
+    case mushroom.isPoisonous:
+      removeTwoFromBasket();
+      break;
+    case mushroom.isDeadly:
+      emptyBasket();
+      mushrooms.forEach((modifyMushroom) => {
+        // eslint-disable-next-line no-param-reassign
+        modifyMushroom.deadlyEffect = true;
+      });
+      break;
+    case mushroom.isMagic:
+      addAllToBasket();
+      mushroom.quantity = 1;
+      basket.unshift(mushroom);
+      break;
+    default:
+      checkQuantityAndAdd(mushroom, sameMushroom);
+  }
+  checkBasketForAllMushrooms();
+};
+
+export default {
+  getMushrooms,
+  getBasket,
+  pickAMushroom,
+  checkBasketForAllMushrooms,
+};
