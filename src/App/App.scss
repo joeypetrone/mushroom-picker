@@ -1,3 +1,16 @@
+@import '../styles/variables';
+@import url('https://fonts.googleapis.com/css2?family=Freckle+Face&display=swap');
 .App {
   text-align: center;
+  h1, h2 {
+    font-family: 'Freckle Face', cursive;
+  }
+}
+
+.trippy-gradient {
+  background: $favGradient;
+}
+
+.danger-background {
+  background: red;
 }

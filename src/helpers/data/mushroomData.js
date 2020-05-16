@@ -282,6 +282,15 @@ const pickAMushroom = () => {
       checkQuantityAndAdd(mushroom, sameMushroom);
   }
   checkBasketForAllMushrooms();
+  return mushroom;
+};
+
+const resetGame = () => {
+  emptyBasket();
+  mushrooms.forEach((mushroom) => {
+    // eslint-disable-next-line no-param-reassign
+    mushroom.hasWon = false;
+  });
 };
 
 export default {
@@ -289,4 +298,5 @@ export default {
   getBasket,
   pickAMushroom,
   checkBasketForAllMushrooms,
+  resetGame,
 };

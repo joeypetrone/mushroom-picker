@@ -23,16 +23,45 @@ class App extends React.Component {
     this.setState({ basket });
   }
 
+  playAgain = () => {
+    mushroomData.resetGame();
+    const basket = mushroomData.getBasket();
+    this.setState({ basket });
+  }
+
+  totalQuantity = () => {
+    let mushroomsInBasket = 0;
+    const basket = mushroomData.getBasket();
+
+    if (basket.length === 0) {
+      // SKIP
+    } else {
+      basket.forEach((mushroom) => {
+        mushroomsInBasket += mushroom.quantity;
+      });
+    }
+
+    return mushroomsInBasket;
+  }
+
+  backgroundSelector = () => {
+
+  }
+
   render() {
     const { mushrooms, basket } = this.state;
 
     return (
-      <div className="App">
-        <h3 className="mt-3">Mushroom Picker</h3>
-        <button className="btn btn-danger" onClick={this.pickAMushroom}>Pick Mushroom</button>
-        <h4>Basket</h4>
-        <Basket basket={basket} />
-        <h4>Forest</h4>
+      <div className={basket.length === 16 ? 'App trippy-gradient' : 'App'}>
+        <h1 className="p-2">Mushroom Picker</h1>
+        {basket.length === 16 ? (
+          <button className="btn btn-danger mb-3" onClick={this.playAgain}>Play Again</button>
+        ) : (
+          <button className="btn btn-danger mb-3" onClick={this.pickAMushroom}>Pick Mushroom</button>
+        )}
+        <h2>Basket</h2>
+        <Basket basket={basket} totalQuantity={this.totalQuantity}/>
+        <h2>Forest</h2>
         <Forest mushrooms={mushrooms} />
       </div>
     );
