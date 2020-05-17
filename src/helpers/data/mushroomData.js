@@ -1,3 +1,5 @@
+const clone = require('rfdc')(); // Returns the deep copy function
+
 const mushrooms = [
   {
     id: 'mushroom01',
@@ -12,7 +14,7 @@ const mushrooms = [
     id: 'mushroom02',
     name: 'Red Cap',
     description: 'Red and poisonous mushroom, DO NOT EAT!',
-    imgUrl: 'https://www.mushroom-appreciation.com/images/xeven-safe-wild-mushrooms-can-make-you-sick-if-21570978.jpg.pagespeed.ic.640-ryPTx4.jpg',
+    imgUrl: 'https://live.staticflickr.com/65535/47663091811_f50f26590b_b.jpg',
     isMagic: false,
     isPoisonous: true,
     isDeadly: false,
@@ -229,15 +231,10 @@ const removeTwoFromBasket = () => {
     }
     i += 1;
   }
-
-  mushrooms.forEach((mushroom) => {
-    // eslint-disable-next-line no-param-reassign
-    mushroom.poisonEffect = true;
-  });
 };
 
-const addAllToBasket = () => {
-  mushrooms.forEach((mushroom) => {
+const addAllToBasket = (cloneMushrooms) => {
+  cloneMushrooms.forEach((mushroom) => {
     const sameMushroom = basket.find((x) => x.id === mushroom.id);
 
     if (mushroom.isPoisonous || mushroom.isDeadly || mushroom.isMagic) {
@@ -249,13 +246,8 @@ const addAllToBasket = () => {
 };
 
 const pickAMushroom = () => {
-  mushrooms.forEach((mushroom) => {
-    // eslint-disable-next-line no-param-reassign
-    mushroom.poisonEffect = false;
-    // eslint-disable-next-line no-param-reassign
-    mushroom.deadlyEffect = false;
-  });
-  const mushroom = mushrooms[Math.floor(Math.random() * mushrooms.length)];
+  const cloneMushrooms = clone(mushrooms);
+  const mushroom = cloneMushrooms[Math.floor(Math.random() * cloneMushrooms.length)];
   const sameMushroom = basket.find((x) => x.id === mushroom.id);
 
   switch (true) {
@@ -264,13 +256,9 @@ const pickAMushroom = () => {
       break;
     case mushroom.isDeadly:
       emptyBasket();
-      mushrooms.forEach((modifyMushroom) => {
-        // eslint-disable-next-line no-param-reassign
-        modifyMushroom.deadlyEffect = true;
-      });
       break;
     case mushroom.isMagic:
-      addAllToBasket();
+      addAllToBasket(cloneMushrooms);
       mushroom.quantity = 1;
       basket.unshift(mushroom);
       break;

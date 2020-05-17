@@ -38,7 +38,7 @@ class Mushroom extends React.Component {
 
     return (
       <div className="Mushroom col-3 mb-4">
-          <div className={backgroundSelector()}>
+          <div className={mushroom.hasWon ? 'card trippy-mushroom' : backgroundSelector()}>
           <img className="card-img-top" src={mushroom.imgUrl} alt="Mushroom Card" />
           <div className='card-body'>
           <h5 className="card-title m-0">{mushroom.name}</h5>
