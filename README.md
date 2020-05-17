@@ -5,6 +5,7 @@
 - ES6 Modules
 - Google Fonts
 - Bootstrap
+- rfdc (Really Fast Deep Copy)
 
 ## Features
 - Pressing the 'Pick Mushroom' button adds mushroom to basket.
@@ -14,19 +15,20 @@
 - When the magic mushroom is picked, it is added to the basket as well as one of each of the edible mushrooms from the forest.
 - When all edible mushrooms are in the basket, the user wins and the 'Pick Mushroom' button becomes a 'Play Again' button
 - The special mushrroms all change the background and style of the mushroom cards when they are picked.
+- Used rfdc to make a copy of an array of objects without referencing the original objects. Needed this for limiting the qauntity key to only the mushrooms in the basket.
 
 ## Screenshots
-##### Mushroom Basket
+#### Mushroom Basket
 ![Mushroom Basket](public/images/mushroom-basket.png)
-##### Magic Mushroom Event
+#### Magic Mushroom Event
 ![Magic Mushroom Event](public/images/magic-mushroom.png)
-##### Death Cap Event
+#### Death Cap Event
 ![Death Cap Event](public/images/deathcap-event.png)
-##### Red Cap Event
+#### Red Cap Event
 ![Red Cap Event](public/images/redcap-event.png)
-##### Webcap Event
+#### Webcap Event
 ![Webcap Event](public/images/webcap-event.png)
-##### Jack-O-Lantern Event
+#### Jack-O-Lantern Event
 ![Jack-O-Lantern Event](public/images/jackolantern-event.png)
 
 ## How To Run

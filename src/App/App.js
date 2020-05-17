@@ -65,9 +65,6 @@ class App extends React.Component {
         case 'Death Cap':
           selectedBackground = 'App death-background';
           break;
-        case 'Mystikal':
-          selectedBackground = 'App trippy-background';
-          break;
         default:
           selectedBackground = 'App';
       }
@@ -75,7 +72,7 @@ class App extends React.Component {
     };
 
     return (
-      <div className={backgroundSelector()}>
+      <div className={basket.length === 16 ? 'App trippy-background' : backgroundSelector()}>
         <h1 className="p-2">Mushroom Picker</h1>
         {basket.length === 16 ? (
           <button className="btn btn-danger mb-3" onClick={this.playAgain}>Play Again</button>
